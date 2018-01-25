@@ -77,8 +77,6 @@ def pe423(cap = 50000000):
     d = 6
     pi = 0
     for n in range(2, cap + 1):
-        if n % 1000000 == 0:
-            print(n)
         c = 6 * c - d
         if primes[pi] == n: # n is prime
             d = d * (n-1) * modinv(pi + 1, mod)
