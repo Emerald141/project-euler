@@ -19,7 +19,7 @@
 # The problem therefore simplifies to finding all 4-tuples (a, b, c, d)
 # where 1 <= a <= b <= c, 0 <= d, and 2(a + b + c) + 3 * d <= n.
 #
-# Let F(n) be the number of such tuples for which 2(a + b + c) + 3 * d <= n.
+# Let F(n) be the number of such tuples for which 2(a + b + c) + 3 * d = n.
 # If n <= 5, F(n) = 0.
 #
 # Consider any 4-tuple (a, b, c, d) which is counted in F(n).
@@ -54,9 +54,10 @@ from math import floor
 
 def pe600(cap = 55106):
     start = time()
-    hexagon_counts = [0 for i in range(cap + 1)]
+    hexagon_counts = [0 for i in range(6)]  # Stores most recent 6 F(i) values
+    result = 0
     for perimeter in range(6, cap + 1):
-        hexagon_counts[perimeter] += hexagon_counts[perimeter - 6]
+        hexagon_counts = hexagon_counts[1:] + [hexagon_counts[0]]
         w = perimeter // 4
         if perimeter % 4 == 0 or perimeter % 4 == 3:
             x = (w + 2) // 3
@@ -73,9 +74,9 @@ def pe600(cap = 55106):
             xP = w + 3
             y = (w + 1) // 3
             yP = w + 1
-        hexagon_counts[perimeter] += (xP * x) - (3 * x * (x + 1) // 2) \
-                                    + (yP * y) - (3 * y * (y + 1) // 2)
-    result = sum(hexagon_counts)
+        hexagon_counts[5] += (xP * x) - (3 * x * (x + 1) // 2) \
+                                + (yP * y) - (3 * y * (y + 1) // 2)
+        result += hexagon_counts[5]
     peresult(600, result, time() - start)
 
 if __name__ == "__main__":
