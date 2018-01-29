@@ -2,7 +2,7 @@ def matrixmult(mat1, mat2, mod=0):
     result = [ [0 for x in range(len(mat2[0]))] for y in range(len(mat1))]
     for row in range(len(result)):
         for col in range(len(result[0])):
-            for i in range(len(mat2[0])):
+            for i in range(len(mat1[0])):
                 result[row][col] += mat1[row][i] * mat2[i][col]
                 if mod != 0:
                     result[row][col] %= mod
