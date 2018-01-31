@@ -22,8 +22,8 @@
 # This means 3x^2 + 4x + 1 = y^2 for some y.
 # Through use of Dario Alpern's diophantine equation solver
 # (found at https://www.alpertron.com.ar/QUAD.HTM),
-# we can find a recursive formula for (x,y) pairs starting from a small set
-# of low-valued seed cases:
+# we can find a recursive formula for (x,y) pairs starting from the trivial
+# solutions (x,y) = (0, +/- 1):
 #   x_(n+1) = -2 x_n - 1 y_n - 2
 #   y_(n+1) = -3 x_n - 2 y_n - 2
 # Only pairs where 0 < x <= (cap - 2) / 6 are counted.
