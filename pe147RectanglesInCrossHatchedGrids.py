@@ -56,15 +56,14 @@ def pe147(horiz_size = 47, vert_size = 43):
             c[x][y] = (horiz_size + 1 - x) * (vert_size + 1 - y) + c[x+1][y] \
                       + c[x][y+1] - c[x+1][y+1]
             result += c[x][y]
-    for r in range(1, 2 * max(horiz_size, vert_size)):  # Loose bound
-        for s in range(1, 2 * max(horiz_size, vert_size)):
+    for r in range(1, 2 * min(horiz_size, vert_size)):
+        for s in range(1, 2 * min(horiz_size, vert_size) - r + 1):
+            # Rectangle with upper corner at corner of grid box
             x = (r + 1) // 2 + (s + 1) // 2
             y = (r + s + 1) // 2
-            if x > horiz_size or y > vert_size:
-                break
             result += c[x][y]
-    for r in range(1, 2 * max(horiz_size, vert_size)):  # Loose bound
-        for s in range(1, 2 * max(horiz_size, vert_size)):
+            
+            # Rectangle with upper corner in middle of grid box
             x = 1 + r // 2 + s // 2
             y = 1 + (r + s) // 2
             if x > horiz_size or y > vert_size:
@@ -73,4 +72,4 @@ def pe147(horiz_size = 47, vert_size = 43):
     peresult(147, result, time() - start)
 
 if __name__ == "__main__":
-    pe147(47, 43)
+    pe147()
