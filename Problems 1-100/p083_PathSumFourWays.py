@@ -1,6 +1,6 @@
-##Find the minimal path sum, in matrix.txt, a 31K text file containing
-##an 80 by 80 matrix, from the top left to the bottom right by moving
-##left, right, up, and down.
+# Find the minimal path sum, in matrix.txt, a 31K text file containing
+# an 80 by 80 matrix, from the top left to the bottom right by moving
+# left, right, up, and down.
 
 from time import time
 import sys

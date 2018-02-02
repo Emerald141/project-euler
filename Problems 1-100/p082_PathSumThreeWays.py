@@ -1,8 +1,8 @@
-##Find the minimal path sum, in matrix.txt, a 31K text file
-##containing a 80 by 80 matrix, from the left column to the
-##right column.
-##
-##Paths can move up, down, and right, but not left.
+# Find the minimal path sum, in matrix.txt, a 31K text file
+# containing a 80 by 80 matrix, from the left column to the
+# right column.
+# 
+# Paths can move up, down, and right, but not left.
 
 from time import time
 import sys
