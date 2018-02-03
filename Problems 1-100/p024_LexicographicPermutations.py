@@ -3,9 +3,9 @@
 # 1, 2, 3 and 4. If all of the permutations are listed
 # numerically or alphabetically, we call it lexicographic
 # order. The lexicographic permutations of 0, 1 and 2 are:
-# 
+#
 # 012   021   102   120   201   210
-# 
+#
 # What is the millionth lexicographic permutation of the
 # digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 
@@ -16,18 +16,18 @@ from peresult import peresult
 from probability import factorial
 
 def solve():
-        start = time()
-        digits = [str(x) for x in range(10)]
-        permsleft = 1000000
-        result = ""
-        while len(digits) > 0:
-                index = 0
-                while factorial(len(digits) - 1) < permsleft:
-                        permsleft -= factorial(len(digits) - 1)
-                        index += 1
-                result += digits[index]
-                del digits[index]
-        peresult(24, result, time() - start)
+    digits = [str(x) for x in range(10)]
+    permutations_remaining = 1000000
+    result = ""
+    while len(digits) > 0:
+        index = 0
+        while factorial(len(digits) - 1) < permutations_remaining:
+            permutations_remaining -= factorial(len(digits) - 1)
+            index += 1
+        result += digits[index]
+        del digits[index]
+    return result
 
 if __name__ == "__main__":
-        solve()
+    start = time()
+    peresult(24, solve(), time() - start)
