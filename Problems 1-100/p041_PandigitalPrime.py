@@ -1,41 +1,31 @@
 # We shall say that an n-digit number is pandigital if it makes
 # use of all the digits 1 to n exactly once. For example, 2143
 # is a 4-digit pandigital and is also prime.
-# 
+#
 # What is the largest n-digit pandigital prime that exists?
+
+# THEORY:
+#
+# The digits 1-9, and the digits 1-8, have a sum that is divisible by 3;
+# therefore any number formed from a permutation of those digits will be
+# divisible by 3. This means that the largest n-digit pandigital prime must have
+# seven or fewer digits.
 
 from time import time
 import sys
 sys.path.append("../Library")
 from peresult import peresult
-from numassemble import numassemble
 from primefns import isprime
+from itertools import permutations
 
 def solve():
-        start = time()
-        #n != 9 because all permutations divisible by 3
-        #n != 8 for the same reason
-        #all the digits sum to a multiple of 3
-        digits = [7 - x for x in range(7)]
-        for a in digits:
-                for b in digits:
-                        if b != a:
-                                for c in digits:
-                                        if c not in [a, b]:
-                                                for d in digits:
-                                                        if d not in [a, b, c]:
-                                                                for e in digits:
-                                                                        if e not in [a, b, c, d]:
-                                                                                for f in digits:
-                                                                                        if f not in [a, b, c, d, e]:
-                                                                                                for g in digits:
-                                                                                                        if g not in [a, b, c, d, e, f]:
-                                                                                                                num = numassemble(a, b, c, d, e, f, g)
-                                                                                                                if isprime(num):
-                                                                                                                        peresult(41, num, time() - start)
-                                                                                                                        return
-        #There's gotta be a better way to do this
-        #Preferably, one that includes less indentation
+    for digit_count in range(7, 0, -1):
+        for perm_raw in permutations("7654321"[digit_count - 7:]):
+            num = int(''.join(perm_raw))
+            if isprime(num):
+                return num
+    print("Error: No pandigital primes found.")
 
 if __name__ == "__main__":
-        solve()
+    start = time()
+    peresult(41, solve(), time() - start)

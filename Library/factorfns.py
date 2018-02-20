@@ -1,14 +1,5 @@
 from primefns import isprime
 
-def factorcount(num):
-        result = 2
-        for factor in range(2, int(num ** .5) + 1):
-                if num % factor == 0:
-                        result += 2
-        if int(num ** .5) ** 2 == num:
-                result -= 1
-        return result
-
 def factorsum(num, proper=False):
         result = 1 + num
         if proper:
