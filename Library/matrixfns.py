@@ -69,7 +69,7 @@ def snip(decimal):
         return int(output)
     return output
 
-def solve(matrix):
+def matsolve(matrix):
     rref(matrix)
     result = []
     for row in matrix:
