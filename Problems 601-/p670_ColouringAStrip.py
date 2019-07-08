@@ -47,7 +47,7 @@ from math import log
 import sys
 sys.path.append("../Library")
 from peresult import peresult
-from matrixfns import matrixmult
+from matrixfns import matrixmult, matrixpow
 
 def solve(n = 10 ** 16):
     mod = 1000004321
@@ -77,23 +77,9 @@ def solve(n = 10 ** 16):
             mat[index1][index2] = entry
     mat[36][36] = 3
 
-    # Lifted from problem 458...
-    matpows = [mat]
-    for twopow in range(int(log(n, 2)) + 1):
-        newmat = matrixmult(matpows[-1], matpows[-1])
-        for row in range(len(newmat)):
-            for col in range(len(newmat[0])):
-                newmat[row][col] %= mod
-        matpows.append(newmat)
-    remaining = n - 1
     rowvector = [[12 * ((x // 6 in [0, 1, 3]) and (x % 6 in [0, 1, 3]))
                     for x in range(36)] + [4]]
-    while remaining > 0:
-        power = int(log(remaining, 2))
-        rowvector = matrixmult(rowvector, matpows[power])
-        for index in range(len(rowvector[0])):
-            rowvector[0][index] %= mod
-        remaining -= 2 ** power
+    rowvector = matrixmult(rowvector, matrixpow(mat, n-1, mod))
     result = rowvector[0][36]
     for x in range(36):
         if x // 6 in [0, 2, 5] and x % 6 in [0, 2, 5]:

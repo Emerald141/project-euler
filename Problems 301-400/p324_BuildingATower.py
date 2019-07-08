@@ -1,22 +1,22 @@
 # Let f(n) represent the number of ways one can fill a 3x3xn tower with
-# blocks of 2x1x1. 
+# blocks of 2x1x1.
 # You're allowed to rotate the blocks in any way you like; however,
 # rotations, reflections etc of the tower itself are counted as distinct.
-# 
+#
 # For example (with q = 100000007) :
 # f(2) = 229,
 # f(4) = 117805,
 # f(10) mod q = 96149360,
 # f(10^3) mod q = 24806056,
 # f(10^6) mod q = 30808124.
-# 
+#
 # Find f(10^10000) mod 100000007.
 
 from time import time
 import sys
 sys.path.append("../Library")
 from peresult import peresult
-from matrixfns import matrixmult
+from matrixfns import matrixmult, matrixpow
 from itertools import product
 from math import log
 
@@ -72,7 +72,6 @@ def solve(cap = 10 ** 10000):
 			if (con1 & con2) == 0:
 				mat[i][j] += tileways[con1 | con2]
 	# Step 4: Identify and eliminate all redundant states
-	remaining = cap // 2
 	mat = matrixmult(mat, mat)
 	index = 0
 	while index < len(mat):
@@ -84,16 +83,7 @@ def solve(cap = 10 ** 10000):
 			index += 1
 	# Step 5: Use the matrix to solve (Strategy lifted from problem 458)
 	rowvector = [[1] + [0 for con in range(1, len(mat))]]
-	while remaining > 0:
-		if remaining % 2:
-			rowvector = matrixmult(rowvector, mat)
-		for index in range(len(rowvector[0])):
-			rowvector[0][index] %= mod
-		remaining //= 2
-		mat = matrixmult(mat, mat)
-		for row in range(len(mat)):
-			for col in range(len(mat[0])):
-				mat[row][col] %= mod
+	rowvector = matrixmult(rowvector, matrixpow(mat, cap // 2, mod))
 	return rowvector[0][0]
 
 if __name__ == "__main__":

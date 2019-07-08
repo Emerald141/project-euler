@@ -1,3 +1,5 @@
+from math import log
+
 def matrixmult(mat1, mat2, mod=0):
     result = [ [0 for x in range(len(mat2[0]))] for y in range(len(mat1))]
     for row in range(len(result)):
@@ -5,6 +7,22 @@ def matrixmult(mat1, mat2, mod=0):
             for i in range(len(mat1[0])):
                 result[row][col] += mat1[row][i] * mat2[i][col]
                 if mod != 0:
+                    result[row][col] %= mod
+    return result
+
+def matrixpow(mat_in, power, mod=0):
+    mat = [row[:] for row in mat_in]
+    result = [ [col==row for col in range(len(mat))] for row in range(len(mat))]
+    while power > 0:
+        if power % 2:
+            result = matrixmult(result, mat)
+        power //= 2
+        if power:
+            mat = matrixmult(mat, mat)
+        if mod:
+            for row in range(len(mat)):
+                for col in range(len(mat[0])):
+                    mat[row][col] %= mod
                     result[row][col] %= mod
     return result
 
