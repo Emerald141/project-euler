@@ -15,16 +15,28 @@ def matrixpow(mat_in, power, mod=0):
     result = [ [col==row for col in range(len(mat))] for row in range(len(mat))]
     while power > 0:
         if power % 2:
-            result = matrixmult(result, mat)
+            result = matrixmult(result, mat, mod)
         power //= 2
         if power:
-            mat = matrixmult(mat, mat)
-        if mod:
-            for row in range(len(mat)):
-                for col in range(len(mat[0])):
-                    mat[row][col] %= mod
-                    result[row][col] %= mod
+            mat = matrixmult(mat, mat, mod)
     return result
+
+def row_matrix_pow_mult(row_in, mat_in, power, mod=0):
+    row = row_in[:]
+    mat = [matrow[:] for matrow in mat_in]
+    while power:
+        if power % 2:
+            new_row = [0 for x in range(len(row))]
+            for x in range(len(row)):
+                for y in range(len(row)):
+                    new_row[x] += row[y] * mat[y][x]
+                if mod != 0:
+                    new_row[x] %= mod
+            row = new_row
+        power //= 2
+        if power:
+            mat = matrixmult(mat, mat, mod)
+    return row
 
 def rref(matrix, printing=False): #Assuming nonempty input
     height = len(matrix)
