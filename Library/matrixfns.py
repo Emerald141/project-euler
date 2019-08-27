@@ -1,5 +1,3 @@
-from math import log
-
 def matrixmult(mat1, mat2, mod=0):
     result = [ [0 for x in range(len(mat2[0]))] for y in range(len(mat1))]
     for row in range(len(result)):
