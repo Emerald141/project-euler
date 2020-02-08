@@ -55,7 +55,6 @@ from peresult import peresult
 from math import floor
 
 def solve(cap = 55106):
-    start = time()
     hexagon_counts = [0 for i in range(6)]  # Stores most recent 6 F(i) values
     result = 0
     for perimeter in range(6, cap + 1):
@@ -79,7 +78,8 @@ def solve(cap = 55106):
         hexagon_counts[5] += (xP * x) - (3 * x * (x + 1) // 2) \
                                 + (yP * y) - (3 * y * (y + 1) // 2)
         result += hexagon_counts[5]
-    peresult(600, result, time() - start)
+    return result
 
 if __name__ == "__main__":
-    solve(55106)
+    start = time()
+    peresult(600, solve(), time() - start)
